@@ -19,7 +19,7 @@ header {
   width: 100%;
   top: 0;
   left: 0;
-  background: #8200002c;
+  background: #0000002c; /* le rouge : 8200002c */
   box-shadow: 0 1px 100px rgba(0, 0, 0, 0.244);
   z-index: 1000;
 
@@ -85,6 +85,111 @@ nav a:hover { color: #ffffff; transform: scale(1.05);}
     filter: drop-shadow(3px 3px 6px rgb(0, 0, 0));
 }
 
+
+/* ======= qui somme nous ======= */
+.contenu-a-propos {
+    padding: 50px;
+    margin: 0 auto; /* Centre le bloc de contenu sur la page */
+    text-align: center; /* Réaligne le texte à gauche à l'intérieur du conteneur */
+}
+
+.contenu-a-propos h2 {
+    font-size: 2.8em; /* Taille de police plus grande */
+    font-weight: 700; /* Gras */
+    margin-bottom: 20px;
+    position: relative; /* Pour positionner l'underline */
+    text-transform: uppercase;
+    text-align: center; /* Assure le centrage du titre */
+}
+
+
+
+/* --- Style des paragraphes P : Texte espacé et lisible --- */
+.contenu-a-propos p {
+    padding-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-size: 1.4em;
+    line-height: 1.6; /* Hauteur de ligne pour une meilleure lisibilité */
+    margin-bottom: 20px;
+    /* Optionnel : Justification pour un alignement propre, mais attention aux espaces */
+    /* text-align: justify; */
+}
+
+/* --- Médias Queries pour le Responsif (Adaptation sur petits écrans) --- */
+@media (max-width: 768px) {
+    #a-propos {
+        padding: 40px 15px; /* Réduit l'espacement sur mobile */
+    }
+
+    .contenu-a-propos h2 {
+        font-size: 2em; /* Réduit la taille du titre sur mobile */
+    }
+
+    .contenu-a-propos p {
+        font-size: 1em; /* Réduit légèrement la taille du paragraphe */
+    }
+}
+
+/* ======= VIDEO YOUTUBE ====== */ 
+
+/* --- 1. Conteneur Vidéo Responsif (Ratio 16:9) --- */
+.video-container-ambilight {
+    /* Crée le ratio d'aspect 16:9 (9 / 16 * 100 = 56.25%) */
+    position: relative;
+    width: 100%;
+
+    padding-bottom: 56.25%; /* Hauteur relative à la largeur */
+    
+    height: 0;
+    overflow: hidden;
+    margin: 40px auto; /* Centre le bloc vidéo et ajoute de l'espace */
+    max-width: 450px; /* <------ c'est censé etre la limite mais je comprend rien aux intergration youtuble + aucun lien marche c un enfer */
+}
+
+.video-container-ambilight iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+}
+
+/* --- 2. L'effet "Ambilight" (Lueur) --- */ 
+
+/* 
+ici je kifferai faire un gros effet ambilight qui prend chaque couleur et qui fait un gros degradé en arriere plan,
+donc la j'ai deja mis des truc pour tester le fond degradé 
+et apres faudra trouver comment on fait un vrai ambilight, et mieux que celui la qui pue de ouf 
+voir : 
+https://www.philips.fr/c-dam/b2c/category-pages/sound-and-vision/tv-articles/what-is-ambilight-tv/what-is-ambilight-tv-thumbnail-l.jpg
+*/
+
+
+.video-container-ambilight {
+    /* Applique une ombre large et floue (comme un halo) */ 
+    box-shadow: 
+        0 0 40px rgba(219, 52, 52, 0.249), 
+        0 0 80px rgba(204, 146, 46, 0.113); 
+    
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 0, 144, 0.146));
+    
+    /*Transition pour un effet subtil au survol (facultatif) */
+
+    transition: box-shadow 0.4s ease-in-out, filter 0.4s ease-in-out;
+}
+
+/* --- 3. Effet Ambilight dynamique (changement au survol) --- */
+.video-container-ambilight:hover {
+    box-shadow: 
+        0 0 60px rgba(230, 34, 34, 0.545), /* Changement de couleur (Orange) */
+        0 0 100px rgba(241, 15, 15, 0.306); /* Changement de couleur (Jaune) */
+
+    filter: drop-shadow(0 0 20px rgba(230, 83, 34, 0.8)) 
+            drop-shadow(0 0 40px rgba(241, 105, 15, 0.6));
+}
 
 
 /* ======= Footer ======= */
