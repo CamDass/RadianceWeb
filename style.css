@@ -12,8 +12,6 @@ body {
     color: #ffffff;
 }
 
-
-
 /* ======= Header ======= */
 
 header {
@@ -59,8 +57,6 @@ nav a {
   transition: transform ease-in 0.2s;
 }
 nav a:hover { color: #ffffff; transform: scale(1.05);}
-
-
 
 
 /* ======= Main ======= */
