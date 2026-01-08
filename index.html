@@ -12,10 +12,9 @@
             <img src="src/images/logo.png" alt="logo">
             <nav>
                 <ul>
-                    <a href="#" class="red">Home</a>
-                    <a href="#">Event</a>
-                    <a href="#">Management</a>
-                    <a href="#">Contact</a>
+                    <li><a href="#" class="red">Home</a></li> <li><a href="#">Event</a></li>
+                    <li><a href="#">Management</a></li>
+                    <li><a href="https://linktr.ee/radiancevent?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnub1rm3ioROSEUS1imzbYwCHf-AxlWqCHR-prMMnUpv4VKTvtYhaiuQfb5mw_aem_em8jLlr9iDErcxM_egyv1A">Contact</a></li>
                 </ul>
             </nav>   
         </div>
@@ -34,15 +33,28 @@
             </div>
         </section>
 
-        <div class="video-container-ambilight">
-            <iframe src="https://www.youtube-nocookie.com/embed/hAc9i-WEIcQ?si=qghvEjdz_5YoPKOe" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-            </iframe> <!-- le lien est temporaire car je faisais des test comme rie n'allait avec l'integration youtube -->
+        <div class="video-wrapper">
+    <canvas id="ambilight-canvas"></canvas>
+    
+    <div class="video-ratio">
+        <video id="main-video" 
+               preload="metadata" 
+               poster="src/images/minia.png">
+            <source src="src/video/KODZ IMPULSIF.mov" type="video/mp4">
+        </video>
+
+        <div class="play-button-overlay">
+            <svg viewBox="0 0 24 24" fill="white" width="80px" height="80px">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
         </div>
+    </div>
+
+    <a href="TON_LIEN_YOUTUBE_ICI" class="btn-youtube" target="_blank">
+        <span>our Instagram</span>
+    </a>
+
+</div>
 
     </main>
 

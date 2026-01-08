@@ -131,66 +131,155 @@ nav a:hover { color: #ffffff; transform: scale(1.05);}
     }
 }
 
-/* ======= VIDEO YOUTUBE ====== */ 
 
-/* --- 1. Conteneur Vidéo Responsif (Ratio 16:9) --- */
-.video-container-ambilight {
-    /* Crée le ratio d'aspect 16:9 (9 / 16 * 100 = 56.25%) */
-    position: relative;
-    width: 100%;
 
-    padding-bottom: 56.25%; /* Hauteur relative à la largeur */
-    
-    height: 0;
-    overflow: hidden;
-    margin: 40px auto; /* Centre le bloc vidéo et ajoute de l'espace */
-    max-width: 450px; /* <------ c'est censé etre la limite mais je comprend rien aux intergration youtuble + aucun lien marche c un enfer */
+
+
+/* ======= VIDEO LOCAL + AMBILIGHT DYNAMIQUE ====== */ 
+
+/* --- 1. Le Wrapper --- */
+.video-wrapper {
+    max-width: 900px; /* Un peu plus large pour une bonne immersion */
+    width: 90%;
+    margin: 80px auto;
+    position: relative; /* Important pour que le canvas se place par rapport à ce bloc */
+    z-index: 1; /* S'assure que le bloc est au-dessus du fond */
 }
 
-.video-container-ambilight iframe {
+/* --- 2. Le Canvas Ambilight (L'arrière-plan dynamique) --- */
+#ambilight-canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2); 
+    width: 100%;
+    height: 100%;
+    
+    /* --- MODIFICATION POUR LE LISSAGE --- */
+    /* Flou augmenté à 120px pour un effet très diffus et lisse */
+    filter: blur(120px) brightness(1.2) saturate(1.4); 
+    
+    z-index: -1; 
+    opacity: 0; /* On laisse à 0 au début pour éviter un flash noir */
+    transition: opacity 0.8s ease-in-out; /* Transition un peu plus lente pour l'apparition */
+}
+
+/* Nouvelle classe pour dire que l'effet est activé */
+.video-wrapper.is-active #ambilight-canvas {
+    opacity: 0.8; /* L'intensité de l'effet (entre 0 et 1) */
+}
+
+
+/* --- 3. Le Conteneur de Ratio et la Vidéo --- */
+.video-ratio {
+    position: relative;
+    width: 100%;
+    /* Ratio 16:9 classique */
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px; 
+    /* Une petite ombre portée noire pour bien détacher la vidéo du flou lumineux */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    background: #000; 
+}
+
+/* Style spécifique pour la balise video */
+.video-ratio video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
+    object-fit: cover; /* S'assure que la vidéo remplit bien le cadre sans être déformée */
+    outline: none; /* Enlève les bordures moches sur certains navigateurs */
 }
 
-/* --- 2. L'effet "Ambilight" (Lueur) --- */ 
+/* --- Style du bouton Play Personnalisé --- */
+.play-button-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.078); /* Légèrement assombri avant le clic */
+    cursor: pointer;
+    transition: opacity 0.3s ease, background 0.3s ease;
+    z-index: 10; /* Au dessus de la vidéo */
+}
 
-/* 
-ici je kifferai faire un gros effet ambilight qui prend chaque couleur et qui fait un gros degradé en arriere plan,
-donc la j'ai deja mis des truc pour tester le fond degradé 
-et apres faudra trouver comment on fait un vrai ambilight, et mieux que celui la qui pue de ouf 
-voir : 
-https://www.philips.fr/c-dam/b2c/category-pages/sound-and-vision/tv-articles/what-is-ambilight-tv/what-is-ambilight-tv-thumbnail-l.jpg
-*/
+.play-button-overlay svg {
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    transition: transform 0.2s ease;
+}
+
+/* Effet au survol du bouton */
+.play-button-overlay:hover svg {
+    transform: scale(1.1);
+}
+
+/* --- ETAT "EN LECTURE" --- */
+/* Quand la classe .is-playing est ajoutée au wrapper, on cache le bouton */
+.video-wrapper.is-playing .play-button-overlay {
+    opacity: 0;
+    pointer-events: none; /* Empêche de cliquer sur le bouton invisible, mais on gère le clic vidéo en JS */
+}
+
+/* On change le curseur de la vidéo pour montrer qu'elle est cliquable pour mettre pause */
+.video-ratio video {
+    cursor: pointer;
+}
 
 
-.video-container-ambilight {
-    /* Applique une ombre large et floue (comme un halo) */ 
+
+
+/* --- Style du bouton YouTube --- */
+.btn-youtube {
+    /* 1. Change inline-flex en flex */
+    display: flex; 
+    
+    /* 2. Dis à la boite de s'adapter à la taille du texte */
+    width: fit-content; 
+    
+    align-items: center;
+    justify-content: center;    
+    
+    /* 3. Utilise 'auto' pour les marges gauche/droite pour centrer */
+    margin: 40px auto; 
+    
+    /* ... le reste de ton code ne change pas ... */
+    padding: 12px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e0e0e0;
+    background: linear-gradient(to bottom, #1e1e1e 0%, #000000 100%);
+    border: 1px solid rgb(0, 0, 0);
     box-shadow: 
-        0 0 40px rgba(219, 52, 52, 0.249), 
-        0 0 80px rgba(204, 146, 46, 0.113); 
-    
-    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) 
-            drop-shadow(0 0 30px rgba(255, 0, 144, 0.146));
-    
-    /*Transition pour un effet subtil au survol (facultatif) */
-
-    transition: box-shadow 0.4s ease-in-out, filter 0.4s ease-in-out;
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.5s ease;
 }
 
-/* --- 3. Effet Ambilight dynamique (changement au survol) --- */
-.video-container-ambilight:hover {
-    box-shadow: 
-        0 0 60px rgba(230, 34, 34, 0.545), /* Changement de couleur (Orange) */
-        0 0 100px rgba(241, 15, 15, 0.306); /* Changement de couleur (Jaune) */
-
-    filter: drop-shadow(0 0 20px rgba(230, 83, 34, 0.8)) 
-            drop-shadow(0 0 40px rgba(241, 105, 15, 0.6));
+/* --- Effet au survol (Hover) --- */
+.btn-youtube:hover {
+    
+    border: 1px solid rgba(106, 106, 106, 0.539); /* Bordure générale très fine */
+    color: #ffffff; /* Le texte devient blanc pur */
+    
 }
 
+.btn-youtube:active {
+
+    transform: scale(0.95); /* Réduit légèrement la taille */
+    opacity: 0.8;           /* Diminue l'opacité pour simuler l'appui */
+    transition: transform 0.1s ease; /* Rend l'effet instantané et fluide */
+
+}
 
 /* ======= Footer ======= */
 
