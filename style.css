@@ -338,7 +338,11 @@ body.no-scroll {
 }
 
 .espace-au-dessus{
-    margin-top: 100px;
+    margin-top: 150px;
+}
+
+.espace-en-bas {
+    margin-bottom: 200px;
 }
 
 
@@ -766,4 +770,101 @@ body.no-scroll {
     transform: scale(1.03);
     filter: brightness(1); 
     border-color: rgba(255, 255, 255, 0.2);
+}
+
+.splide__track {
+    /* On ajoute 30px d'espace en haut et en bas à l'intérieur de la piste de recadrage */
+    padding: 30px 0; 
+}
+
+
+
+/* =========================================
+   12. SECTION CUT THE MUSTARD
+========================================= */
+.ctm-section {
+    padding: 100px 0;
+    background-color: var(--bg-color);
+}
+
+/* --- Layout en 2 colonnes (PC) --- */
+.ctm-layout {
+    display: flex;
+    align-items: center; /* Centre le texte verticalement par rapport à la vidéo */
+    gap: 60px; /* Espace généreux entre le texte et la vidéo */
+}
+
+/* --- Colonne Texte (Gauche) --- */
+.ctm-text-column {
+    flex: 1; /* Prend 1 part de l'espace */
+    text-align: left;
+}
+
+/* Titre massif */
+.ctm-title {
+    font-size: 5rem; /* Énorme, comme sur ta maquette */
+    font-weight: 900;
+    color: var(--text-main);
+    line-height: 0.9;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: -1px; /* Rapproche un peu les lettres pour un effet bloc */
+}
+
+/* Sous-titre rouge */
+.ctm-subtitle {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Paragraphe */
+.ctm-description {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+}
+
+/* --- Colonne Vidéo (Droite) --- */
+.ctm-video-column {
+    flex: 1.4; /* Prend un peu plus de place que le texte */
+    width: 100%;
+}
+
+/* --- Wrapper YouTube Responsive --- */
+/* C'est la technique magique pour que l'iframe s'adapte à tous les écrans tout en gardant son format 16:9 */
+.youtube-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 (9 / 16 = 0.5625) */
+    height: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Bordure façon Liquid Glass subtile */
+}
+
+.youtube-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================
+   MEDIA QUERIES (Tablettes & Mobiles)
+========================================= */
+@media (max-width: 992px) {
+    .ctm-layout {
+        flex-direction: column; /* Empile le texte AU-DESSUS de la vidéo */
+        gap: 40px;
+    }
+    
+    .ctm-title {
+        font-size: 3.5rem; /* Réduit un peu la taille du titre */
+    }
 }
