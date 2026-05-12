@@ -3,64 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radiance</title>
+    <title>Radiance | Worldwide</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-nav">
-            <img src="src/images/logo.png" alt="logo">
-            <nav>
-                <ul>
-                    <li><a href="#" class="red">Home</a></li> <li><a href="#">Event</a></li>
-                    <li><a href="#">Management</a></li>
-                    <li><a href="https://linktr.ee/radiancevent?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnub1rm3ioROSEUS1imzbYwCHf-AxlWqCHR-prMMnUpv4VKTvtYhaiuQfb5mw_aem_em8jLlr9iDErcxM_egyv1A">Contact</a></li>
-                </ul>
-            </nav>   
+    <header id="main-header" class="liquid-header">
+        <div class="header-container">
+            <button id="burger-btn" class="burger-menu" aria-label="Ouvrir le menu">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+            <a href="#" class="logo-link">
+                <img src="src/images/logo.png" alt="Radiance Logo" class="header-logo">
+            </a>
+
+            <a href="/shop" class="shop-link">Shop</a>
         </div>
     </header>
 
-    <main>
-        <div class="hero">
-            <img src="src/images/logo.png" alt="logo">
-        </div>
+    
 
-        <section id="a-propos">
-            <div class="contenu-a-propos">
-                <h2>Qui sommes nous ?</h2>
-                <p>ceci est une description de Radiance. ceci est unceci est une description de Radiance. ceci est une description de Radiance. e description de Radiance. ceci est une description de Radiance. ceci est une description de Radiance. ceci est unceci est une description de Radiance. ceci est une description de Radiance. e description de Radiance. ceci est une description de Radiance. </p>
-                <p>ceci est une description de Radiance. ceci est unceci est une description de Radiance. ceci est une description de Radiance. e description de Radiance. ceci est une description de Radiance. ceci est une description de Radiance. ceci est unceci est une description de Radiance. ceci est une description de Radiance. e description de Radiance. ceci est une description de Radiance. </p>
+
+    <nav id="full-menu" class="full-menu-overlay">
+        <div class="menu-content">
+            <ul>
+                <li><a href="#hero" class="menu-link">Accueil</a></li>
+                <li><a href="#events" class="menu-link">Event</a></li>
+                <li><a href="https://www.instagram.com/radiancee_agency/" class="menu-link">Management</a></li>
+                <li><a href="#showcase" class="menu-link">Cut the mustard</a></li>
+                <li><a href="/shop" class="menu-link">Shop</a></li>
+                <li><a href="#main-footer" class="menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-overlay"></div>
+            
+            <video autoplay loop muted playsinline poster="src/images/minia.png" class="hero-bg-video">
+                <source src="src/video/kodz-impulsif.mp4" type="video/mp4">
+            </video>
+
+            <div class="hero-content">
+                <img src="src/images/logo.png" alt="Radiance" class="hero-giant-logo">
+            </div>
+
+            
+        </section>
+        
+
+        <section id="history" class="history-section">
+            <div class="container">
+                <div class="history-content-wrapper">
+                    <h4 class="section-subtitle">Sous-titre</h4>
+                    
+                    <h2 class="section-title">TITRE PRINCIPAL</h2>
+                    
+                    <div class="history-text-block">
+                        <p>
+                            Description de l'agence. Ceci est une description générique pour présenter l'ensemble de vos activités (Events, Management, DJ Sets). Ceci est une description générique pour présenter l'ensemble de vos activités.
+                        </p>
+                        <p>
+                            Ceci est un deuxième paragraphe de description. Ceci est un deuxième paragraphe de description. Ceci est un deuxième paragraphe de description. 
+                        </p>
+                        <p><strong>Phrase d'accroche ou slogan en gras.</strong></p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <div class="video-wrapper">
-    <canvas id="ambilight-canvas"></canvas>
-    
-    <div class="video-ratio">
-        <video id="main-video" 
-               preload="metadata" 
-               poster="src/images/minia.png">
-            <source src="src/video/KODZ IMPULSIF.mov" type="video/mp4">
-        </video>
+        <section id="showcase" class="showcase-section">
+            <div class="container">
+                <div class="video-wrapper">
+                    <canvas id="ambilight-canvas"></canvas>
+                    
+                    <div class="video-ratio">
+                        <video id="main-video" autoplay loop muted playsinline preload="metadata" poster="src/images/minia.png">
+                            <source src="src/video/kodz-impulsif.mp4" type="video/mp4">
+                        </video>
 
-        <div class="play-button-overlay">
-            <svg viewBox="0 0 24 24" fill="white" width="80px" height="80px">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
-        </div>
-    </div>
+                        <div id="volume-feedback" class="volume-overlay"></div>
+                    </div>
 
-    <a href="TON_LIEN_YOUTUBE_ICI" class="btn-youtube" target="_blank">
-        <span>our Instagram</span>
-    </a>
-
-</div>
-
+                    <a href="https://www.instagram.com/radiance_event/" class="btn-youtube" target="_blank">
+                        <span>Our Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
     </main>
 
-    <footer>
-         <p>&copy; 2025 Radiance. Tous droits réservés.</p>
-    </footer>
+
+
+
+    <footer id="main-footer"></footer>
 
     <script src="script.js"></script>
 </body>

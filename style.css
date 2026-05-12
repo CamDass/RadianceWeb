@@ -1,152 +1,358 @@
+/* =========================================
+   1. VARIABLES CSS (Le Design System)
+   Toutes nos couleurs et effets sont centralisés ici.
+========================================= */
+:root {
+    /* Couleurs de base (Thème sombre/chaud) */
+    --bg-color: #050505;       /* Noir profond, presque pur */
+    --bg-card: #121212;        /* Gris très foncé pour faire ressortir les cartes */
+    --text-main: #f4f4f4;      /* Blanc cassé pour ne pas exploser les yeux */
+    --text-muted: #8a8a8a;     /* Gris pour les dates/textes secondaires */
+    --accent-color: #e63946;   /* Rouge chaud/incandescent (à ajuster selon ton vrai logo) */
+
+    /* Variables pour l'effet Liquid Glass */
+    --glass-bg: rgba(5, 5, 5, 0.4);
+    --glass-blur: blur(15px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Typographie */
+    --font-main: 'Montserrat', sans-serif;
+}
+
+/* =========================================
+   2. RESET & BASES
+   On nettoie les marges par défaut des navigateurs.
+========================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden; /* empêche débordements globaux */
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    overflow-x: hidden; /* Empêche de scroller sur le côté par erreur */
+    -webkit-font-smoothing: antialiased; /* Rend les textes beaucoup plus nets et lisses */
 }
 
-/* ======= Base ======= */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #000000;
-    color: #ffffff;
+/* Base Typographique pour les titres (Impact visuel fort) */
+h1, h2, h3, h4 {
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
-/* ======= Header ======= */
-
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: #0000002c; /* le rouge : 8200002c */
-  box-shadow: 0 1px 100px rgba(0, 0, 0, 0.244);
-  z-index: 1000;
-
-  backdrop-filter: blur(7px); /* effet de flou */
+/* Nettoyage des liens */
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-header img {
-    height: 60px;
-    width: auto;
-    padding: 20px;
+/* Nettoyage des listes */
+ul {
+    list-style: none;
 }
 
-.header-nav {
+/* =========================================
+   3. CLASSES UTILITAIRES GLOBALES
+========================================= */
+/* La classe .container va nous permettre d'aligner parfaitement le contenu au centre de l'écran, peu importe la taille de l'écran (comme sur Newrave) */
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+
+/* =========================================
+   4. HEADER LIQUID GLASS
+========================================= */
+.liquid-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1000; /* Toujours au-dessus du reste */
+    
+    /* L'effet Liquid Glass magique */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur); /* Pour Safari */
+    border-bottom: var(--glass-border);
+    
+    transition: all 0.3s ease;
+}
+
+.header-container {
+    max-width: 1600px; /* Un peu plus large que le contenu normal */
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: right;
-    padding-left: 20px ;
-    padding-right: 20px;
-    
-}
-.header-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
-
-nav a {
-  color: #d3d3d3;
-  text-decoration: none;
-  font-weight: 500;
-  transition: transform ease-in 0.2s;
-}
-nav a:hover { color: #ffffff; transform: scale(1.05);}
-
-
-/* ======= Main ======= */
-/* Hero */
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  text-align: center;
-  padding: 20px;
-  
-  /* Image de fond + overlay */
-  background-image:
-    url("https://electro-news.eu/wp-content/uploads/2024/01/pisica.jpg");
-  background-repeat: no-repeat;       /* ne pas répéter l'image */
-  background-size: cover;             /* remplir tout l'espace */
-  background-position: center;        /* centrer l'image */
-  height: 100vh;                      /* hauteur = 100% de la fenêtre */
-}
-.hero img { 
-    height: 200px;
+/* Le Logo */
+.header-logo {
+    height: 35px; /* Taille à ajuster selon ton image */
     width: auto;
-    filter: drop-shadow(3px 3px 6px rgb(0, 0, 0));
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+    transition: transform 0.3s ease;
 }
 
-
-/* ======= qui somme nous ======= */
-.contenu-a-propos {
-    padding: 50px;
-    margin: 0 auto; /* Centre le bloc de contenu sur la page */
-    text-align: center; /* Réaligne le texte à gauche à l'intérieur du conteneur */
+.logo-link:hover .header-logo {
+    transform: scale(1.05);
 }
 
-.contenu-a-propos h2 {
-    font-size: 2.8em; /* Taille de police plus grande */
-    font-weight: 700; /* Gras */
-    margin-bottom: 20px;
-    position: relative; /* Pour positionner l'underline */
+/* Lien Shop */
+.shop-link {
+    font-size: 14px;
+    font-weight: 700;
     text-transform: uppercase;
-    text-align: center; /* Assure le centrage du titre */
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.shop-link:hover {
+    color: var(--accent-color);
+}
+
+/* =========================================
+   5. MENU BURGER ANIMÉ
+========================================= */
+.burger-menu {
+    width: 35px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1001; /* Doit être au-dessus de l'overlay du menu pour pouvoir le fermer */
+}
+
+.burger-menu .line {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: var(--text-main);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.burger-menu .line:nth-child(1) { top: 0; }
+.burger-menu .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.burger-menu .line:nth-child(3) { bottom: 0; }
+
+/* Animation en Croix (X) quand le menu est ouvert */
+.burger-menu.is-active .line:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+.burger-menu.is-active .line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+.burger-menu.is-active .line:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+/* =========================================
+   6. OVERLAY MENU PLEIN ÉCRAN
+========================================= */
+.full-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(5, 5, 5, 0.95); /* Fond presque noir mais laisse deviner le site derrière */
+    backdrop-filter: blur(10px);
+    z-index: 999; /* Juste en dessous du header */
+    
+    /* Caché par défaut */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* État Ouvert */
+.full-menu-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-content ul {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espace entre les liens */
+}
+
+/* Typographie Massive (Style Techno/Rave) */
+.menu-link {
+    font-size: 3rem; /* Très gros */
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.menu-link:hover {
+    color: var(--text-main);
+    transform: translateY(-5px) scale(1.05);
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Désactiver le scroll du body quand le menu est ouvert */
+body.no-scroll {
+    overflow: hidden;
 }
 
 
 
-/* --- Style des paragraphes P : Texte espacé et lisible --- */
-.contenu-a-propos p {
-    padding-top: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-    font-size: 1.4em;
-    line-height: 1.6; /* Hauteur de ligne pour une meilleure lisibilité */
-    margin-bottom: 20px;
-    /* Optionnel : Justification pour un alignement propre, mais attention aux espaces */
-    /* text-align: justify; */
+/* =========================================
+   7. HERO SECTION (Vidéo full screen & Logo)
+========================================= */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Prend 100% de la hauteur de l'écran visible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-/* --- Médias Queries pour le Responsif (Adaptation sur petits écrans) --- */
-@media (max-width: 768px) {
-    #a-propos {
-        padding: 40px 15px; /* Réduit l'espacement sur mobile */
-    }
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* CHANGÉ : 1 (Tout au fond de la section) */
+}
 
-    .contenu-a-propos h2 {
-        font-size: 2em; /* Réduit la taille du titre sur mobile */
-    }
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(5, 5, 5, 0.523) 0%, rgba(5, 5, 5, 0.95) 100%);
+    background: linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.95) 80%);
+    z-index: 2; /* CHANGÉ : 2 (Par dessus la vidéo) */
+}
 
-    .contenu-a-propos p {
-        font-size: 1em; /* Réduit légèrement la taille du paragraphe */
+.hero-content {
+    z-index: 3; /* CHANGÉ : 3 (Au tout premier plan) */
+    text-align: center;
+    padding: 0 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-giant-logo {
+    width: 70vw; /* Prend 70% de la largeur de l'écran */
+    max-width: 700px; /* Mais bloque à 700px max sur les très grands écrans */
+    height: auto;
+    /* Ombre noire classique */
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)); 
+    /* Animation fluide pour faire "pulser" le logo */
+    animation: pulse-glow 4s infinite alternate ease-in-out; 
+}
+
+/* --- Animation de pulsation et de lueur --- */
+@keyframes pulse-glow {
+    0% { 
+        filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8)); 
+        transform: scale(1); 
+    }
+    100% { 
+        /* On utilise la couleur d'accentuation (rouge) pour la lueur */
+        filter: drop-shadow(0 0 35px var(--bg-card)); 
+        transform: scale(1.03); 
     }
 }
 
+/* =========================================
+   8. SECTION HISTOIRE / DESCRIPTION
+========================================= */
+.history-section {
+    padding: 120px 0; /* Espace généreux en haut et en bas */
+    background-color: var(--bg-color); 
+}
 
+/* Le conteneur qui centre le bloc au milieu de l'écran */
+.history-content-wrapper {
+    max-width: 1000px; /* Largeur maximale du bloc de texte */
+    margin: 0 auto;    /* Magie du centrage horizontal */
+    text-align: left;  /* Force le texte à rester aligné à gauche */
+    padding: 0 20px;
+}
 
+/* Sous-titre subtil */
+.section-subtitle {
+    color: var(--accent-color);
+    font-size: 18px; /* Plus grand */
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
 
+/* Titre principal */
+.section-title {
+    font-size: 4.5rem; /* Typo beaucoup plus massive */
+    line-height: 1.1;
+    margin-bottom: 40px;
+    color: var(--text-main);
+}
 
-/* ======= VIDEO LOCAL + AMBILIGHT DYNAMIQUE ====== */ 
+/* Bloc de texte */
+.history-text-block p {
+    font-size: 1.5rem; /* Paragraphes plus grands et lisibles */
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
 
-/* --- 1. Le Wrapper --- */
+.history-text-block p strong {
+    color: var(--text-main);
+}
+
+/* =========================================
+   9. SECTION SHOWCASE (Vidéo Ambilight)
+========================================= */
+.showcase-section {
+    padding: 50px 0 100px 0;
+    background-color: var(--bg-color);
+}
+
+/* --- Le Wrapper Ambilight --- */
 .video-wrapper {
-    max-width: 900px; /* Un peu plus large pour une bonne immersion */
+    max-width: 900px; 
     width: 90%;
-    margin: 80px auto;
-    position: relative; /* Important pour que le canvas se place par rapport à ce bloc */
-    z-index: 1; /* S'assure que le bloc est au-dessus du fond */
+    margin: 0 auto;
+    position: relative; 
+    z-index: 1; 
 }
 
-/* --- 2. Le Canvas Ambilight (L'arrière-plan dynamique) --- */
+/* --- Le Canvas Ambilight (L'arrière-plan dynamique) --- */
 #ambilight-canvas {
     position: absolute;
     top: 50%;
@@ -155,103 +361,77 @@ nav a:hover { color: #ffffff; transform: scale(1.05);}
     width: 100%;
     height: 100%;
     
-    /* --- MODIFICATION POUR LE LISSAGE --- */
-    /* Flou augmenté à 120px pour un effet très diffus et lisse */
+    /* Ton réglage de flou lissé */
     filter: blur(120px) brightness(1.2) saturate(1.4); 
     
     z-index: -1; 
-    opacity: 0; /* On laisse à 0 au début pour éviter un flash noir */
-    transition: opacity 0.8s ease-in-out; /* Transition un peu plus lente pour l'apparition */
+    opacity: 0; 
+    transition: opacity 0.8s ease-in-out; 
 }
 
-/* Nouvelle classe pour dire que l'effet est activé */
 .video-wrapper.is-active #ambilight-canvas {
-    opacity: 0.8; /* L'intensité de l'effet (entre 0 et 1) */
+    opacity: 0.8; 
 }
 
-
-/* --- 3. Le Conteneur de Ratio et la Vidéo --- */
+/* --- Le Conteneur de Ratio et la Vidéo --- */
 .video-ratio {
     position: relative;
     width: 100%;
-    /* Ratio 16:9 classique */
     padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     border-radius: 12px; 
-    /* Une petite ombre portée noire pour bien détacher la vidéo du flou lumineux */
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
     background: #000; 
 }
 
-/* Style spécifique pour la balise video */
 .video-ratio video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* S'assure que la vidéo remplit bien le cadre sans être déformée */
-    outline: none; /* Enlève les bordures moches sur certains navigateurs */
+    object-fit: cover; 
+    outline: none; 
+    cursor: pointer;
 }
 
-/* --- Style du bouton Play Personnalisé --- */
-.play-button-overlay {
+
+/* --- Overlay de feedback volume (Temporaire) --- */
+.volume-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.078); /* Légèrement assombri avant le clic */
-    cursor: pointer;
-    transition: opacity 0.3s ease, background 0.3s ease;
-    z-index: 10; /* Au dessus de la vidéo */
-}
-
-.play-button-overlay svg {
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-    transition: transform 0.2s ease;
-}
-
-/* Effet au survol du bouton */
-.play-button-overlay:hover svg {
-    transform: scale(1.1);
-}
-
-/* --- ETAT "EN LECTURE" --- */
-/* Quand la classe .is-playing est ajoutée au wrapper, on cache le bouton */
-.video-wrapper.is-playing .play-button-overlay {
+    pointer-events: none; /* Important : pour toujours pouvoir cliquer sur la vidéo dessous */
     opacity: 0;
-    pointer-events: none; /* Empêche de cliquer sur le bouton invisible, mais on gère le clic vidéo en JS */
+    transition: opacity 0.3s ease; /* L'effet de fade */
+    z-index: 10;
 }
 
-/* On change le curseur de la vidéo pour montrer qu'elle est cliquable pour mettre pause */
-.video-ratio video {
-    cursor: pointer;
+/* Classe activée par JS pendant 1 seconde */
+.volume-overlay.show {
+    opacity: 1;
 }
 
+.volume-overlay svg {
+    width: 80px;
+    height: 80px;
+    fill: white;
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.6));
+}
 
-
-
-/* --- Style du bouton YouTube --- */
+/* --- Bouton YouTube Stylisé --- */
 .btn-youtube {
-    /* 1. Change inline-flex en flex */
     display: flex; 
-    
-    /* 2. Dis à la boite de s'adapter à la taille du texte */
     width: fit-content; 
-    
     align-items: center;
     justify-content: center;    
-    
-    /* 3. Utilise 'auto' pour les marges gauche/droite pour centrer */
-    margin: 40px auto; 
-    
-    /* ... le reste de ton code ne change pas ... */
+    margin: 40px auto 0 auto; 
     padding: 12px 30px;
     border-radius: 12px;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
@@ -265,26 +445,13 @@ nav a:hover { color: #ffffff; transform: scale(1.05);}
     transition: all 0.5s ease;
 }
 
-/* --- Effet au survol (Hover) --- */
 .btn-youtube:hover {
-    
-    border: 1px solid rgba(106, 106, 106, 0.539); /* Bordure générale très fine */
-    color: #ffffff; /* Le texte devient blanc pur */
-    
+    border: 1px solid rgba(106, 106, 106, 0.539); 
+    color: #ffffff; 
 }
 
 .btn-youtube:active {
-
-    transform: scale(0.95); /* Réduit légèrement la taille */
-    opacity: 0.8;           /* Diminue l'opacité pour simuler l'appui */
-    transition: transform 0.1s ease; /* Rend l'effet instantané et fluide */
-
-}
-
-/* ======= Footer ======= */
-
-footer {
-    text-align: center;
-    margin-top: 1000px;
-    color: rgba(255, 255, 255, 0.461);
+    transform: scale(0.95); 
+    opacity: 0.8;           
+    transition: transform 0.1s ease; 
 }
