@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -104,10 +105,89 @@
         </section>
 
 
+        <section id="events" class="events-section">
+            <div class="container">
+                <div class="left">
+                    <h4 class="section-subtitle">Events</h4>
+                    <h2 class="section-title">Agenda</h2>
+                </div>
+
+                <div class="events-grid">
+                    
+                    <div class="event-card">
+                        <div class="event-image-wrapper">
+                            <img src="src/images/event.png" alt="Affiche Event" class="event-photo">
+                        </div>
+                        <div class="event-info">
+                            <p class="event-date">DATE DE L'EVENT</p>
+                            <h3 class="event-name">NOM DE L'EVENT</h3>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-image-wrapper">
+                            <img src="src/images/event.png" alt="Affiche Event" class="event-photo">
+                        </div>
+                        <div class="event-info">
+                            <p class="event-date">DATE DE L'EVENT</p>
+                            <h3 class="event-name">NOM DE L'EVENT</h3>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-image-wrapper">
+                            <img src="src/images/event.png" alt="Affiche Event" class="event-photo">
+                        </div>
+                        <div class="event-info">
+                            <p class="event-date">DATE DE L'EVENT</p>
+                            <h3 class="event-name">NOM DE L'EVENT</h3>
+                        </div>
+                    </div>
+
+                </div> </div>
+        </section>
+
+
+        <div class="espace-au-dessus">
+            <div class="center">
+                <h2 class="section-title">Galerie</h2>
+            </div>
+        </div>
+        
+
+        <div class="events-carousel-wrapper">
+                    
+            <div id="carousel-ambilight" class="carousel-ambilight"></div>
+
+            <div class="splide" id="events-carousel" aria-label="Photos des événements">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide"><img src="src/images/fake-dj-event.jpg" alt="Event 1"></li>
+                        <li class="splide__slide"><img src="src/images/minia.png" alt="Event 2"></li>
+                        <li class="splide__slide"><img src="src/images/galerie3.jpg" alt="Event 3"></li>
+                        <li class="splide__slide"><img src="src/images/galerie-4.jpeg" alt="Event 4"></li>
+                        <li class="splide__slide"><img src="src/images/galerie5.jpg" alt="Event 5"></li>
+
+                        <li class="splide__slide"><img src="src/images/fake-dj-event.jpg" alt="Event 1"></li>
+                        <li class="splide__slide"><img src="src/images/minia.png" alt="Event 2"></li>
+                        <li class="splide__slide"><img src="src/images/galerie3.jpg" alt="Event 3"></li>
+                        <li class="splide__slide"><img src="src/images/galerie-4.jpeg" alt="Event 4"></li>
+                        <li class="splide__slide"><img src="src/images/galerie5.jpg" alt="Event 5"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
         <section id="management" class="management-section">
             <div class="container">
-                <h4 class="section-subtitle">Management</h4>
-                <h2 class="section-title">The Crew</h2>
+                <div class="right">
+                    <h4 class="section-subtitle">Management</h4>
+                    <h2 class="section-title">The Crew</h2>
+                </div>
+                
 
                 <div class="dj-grid">
                     
@@ -151,7 +231,49 @@
                         </div>
                     </div>
 
-                </div> </div> </section>
+                </div> </div> 
+        </section>
+
+        <div class="espace-au-dessus"></div>
+
+
+        <section id="cut-the-mustard" class="ctm-section">
+            <div class="container">
+                <div class="ctm-layout">
+                    
+                    <div class="ctm-text-column">
+                        <h2 class="ctm-title">CUT THE MUSTARD</h2>
+                        <h3 class="section-subtitle">dj set</h3>
+                        <p class="ctm-description">
+                            description de cut the mustard. description de cut the mustard. 
+                            description de cut the mustard. description de cut the mustard. 
+                            description de cut the mustard. description de cut the mustard. 
+                            description de cut the mustard. description de cut the mustard. 
+                            description de cut the mustard. description de cut the mustard.
+                        </p>
+                    </div>
+
+                    <div class="ctm-video-column">
+                        <div class="youtube-wrapper">
+                            <iframe 
+                                src="https://www.youtube.com/embed/cTrkx1bFyN0?" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <div class="espace-en-bas"></div>
+            
+            
         
     </main>
 
@@ -160,6 +282,7 @@
 
     <footer id="main-footer"></footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

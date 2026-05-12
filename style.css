@@ -323,6 +323,29 @@ body.no-scroll {
     color: var(--text-main);
 }
 
+
+/* --- Alignements de texte --- */
+.left {
+    text-align: left !important;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.right {
+    text-align: right !important;
+}
+
+.espace-au-dessus{
+    margin-top: 150px;
+}
+
+.espace-en-bas {
+    margin-bottom: 200px;
+}
+
+
 /* Bloc de texte */
 .history-text-block p {
     font-size: 1.5rem; /* Paragraphes plus grands et lisibles */
@@ -589,4 +612,259 @@ body.no-scroll {
     }
     
     .history-content-wrapper .section-title { font-size: 3rem; } /* Ajustement titre histoire au passage */
+}
+
+
+
+/* =========================================
+   11. SECTION EVENTS (Agenda 3 Cartes)
+========================================= */
+.events-section {
+    padding: 100px 0;
+    background-color: var(--bg-color);
+}
+
+/* --- La Grille (3 colonnes) --- */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cartes de taille égale */
+    gap: 40px; /* Espace généreux entre les événements */
+    margin-top: 50px;
+}
+
+/* --- La Carte Événement --- */
+.event-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: pointer; /* Indique que c'est cliquable */
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- L'image de l'event --- */
+.event-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Verrouille le ratio au format paysage standard */
+    overflow: hidden;
+}
+
+.event-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.event-card:hover .event-photo {
+    transform: scale(1.05); /* Léger zoom au survol */
+}
+
+/* --- Les Informations (Date & Nom) --- */
+.event-info {
+    padding: 25px;
+    text-align: left;
+}
+
+.event-date {
+    color: var(--accent-color); /* La date en rouge/accent pour attirer l'œil */
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.event-name {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+
+
+
+
+
+
+/* =========================================
+   MEDIA QUERIES (Responsivité Event)
+========================================= */
+
+/* Tablettes (On passe à 2 colonnes) */
+@media (max-width: 992px) {
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobiles (On passe à 1 seule colonne) */
+@media (max-width: 768px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================================
+   12. VÉRITABLE AMBILIGHT DÉPORTÉ
+========================================= */
+.events-carousel-wrapper {
+    position: relative; /* Base pour les z-index */
+    margin-top: 40px;
+    margin-bottom: 80px;
+    padding: 20px 0; /* Un peu d'espace pour le rayonnement */
+}
+
+/* --- Le Calque Ambilight (Le plus bas) --- */
+.carousel-ambilight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.3); /* Légèrement plus grand pour le rayonnement */
+    width: 80%; /* Ne prend pas toute la largeur pour concentrer la lueur */
+    height: 100%;
+    
+    /* L'effet de rayonnement déporté sur le fond */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Flou massif, luminosité et saturation augmentées */
+    filter: blur(120px) brightness(1.3) saturate(1.5); 
+    
+    z-index: 0; /* Tout au fond */
+    
+    /* On utilise l'opacité pour simuler l'effet "Image Claire" */
+    opacity: 0.6; /* Présent mais subtil pour ne pas tout écraser */
+    transition: background-image 0.8s ease-in-out, opacity 0.8s ease-in-out;
+}
+
+/* --- Le Carrousel (Devant) --- */
+.splide {
+    z-index: 1; /* Par dessus l'ambilight */
+    position: relative;
+}
+
+/* Style des images (On revient aux basiques) */
+.splide__slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    filter: brightness(0.6); 
+    transition: all 0.5s ease;
+}
+
+/* L'image au centre (focus) est mise en avant */
+.splide__slide.is-active img {
+    transform: scale(1.03);
+    filter: brightness(1); 
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.splide__track {
+    /* On ajoute 30px d'espace en haut et en bas à l'intérieur de la piste de recadrage */
+    padding: 30px 0; 
+}
+
+
+
+/* =========================================
+   12. SECTION CUT THE MUSTARD
+========================================= */
+.ctm-section {
+    padding: 100px 0;
+    background-color: var(--bg-color);
+}
+
+/* --- Layout en 2 colonnes (PC) --- */
+.ctm-layout {
+    display: flex;
+    align-items: center; /* Centre le texte verticalement par rapport à la vidéo */
+    gap: 60px; /* Espace généreux entre le texte et la vidéo */
+}
+
+/* --- Colonne Texte (Gauche) --- */
+.ctm-text-column {
+    flex: 1; /* Prend 1 part de l'espace */
+    text-align: left;
+}
+
+/* Titre massif */
+.ctm-title {
+    font-size: 5rem; /* Énorme, comme sur ta maquette */
+    font-weight: 900;
+    color: var(--text-main);
+    line-height: 0.9;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: -1px; /* Rapproche un peu les lettres pour un effet bloc */
+}
+
+/* Sous-titre rouge */
+.ctm-subtitle {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Paragraphe */
+.ctm-description {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+}
+
+/* --- Colonne Vidéo (Droite) --- */
+.ctm-video-column {
+    flex: 1.4; /* Prend un peu plus de place que le texte */
+    width: 100%;
+}
+
+/* --- Wrapper YouTube Responsive --- */
+/* C'est la technique magique pour que l'iframe s'adapte à tous les écrans tout en gardant son format 16:9 */
+.youtube-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 (9 / 16 = 0.5625) */
+    height: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Bordure façon Liquid Glass subtile */
+}
+
+.youtube-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================
+   MEDIA QUERIES (Tablettes & Mobiles)
+========================================= */
+@media (max-width: 992px) {
+    .ctm-layout {
+        flex-direction: column; /* Empile le texte AU-DESSUS de la vidéo */
+        gap: 40px;
+    }
+    
+    .ctm-title {
+        font-size: 3.5rem; /* Réduit un peu la taille du titre */
+    }
 }
