@@ -101,3 +101,85 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+/* =========================================
+   INITIALISATION DU CARROUSEL (SPLIDE)
+========================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const carouselElement = document.getElementById('events-carousel');
+    
+    // On vérifie si le carrousel est présent sur la page
+    if (carouselElement) {
+        new Splide(carouselElement, {
+            type   : 'loop',       // Tourne en boucle
+            perPage: 3,            // Affiche 3 images sur PC
+            perMove: 1,            // Décale d'une image à la fois
+            gap    : '20px',       // Espace entre les images
+            focus  : 'center',     // L'image du milieu est la principale
+            autoplay: true,        // Défilement auto
+            interval: 3000,        // Pause de 3s entre chaque défilement
+            pagination: true,      // Affiche les petits points
+            breakpoints: {
+                992: {
+                    perPage: 2,    // 2 images sur tablette
+                    focus  : 0     // Enlève le focus central sur petit écran
+                },
+                576: {
+                    perPage: 1     // 1 image sur mobile
+                }
+            }
+        }).mount();
+    }
+});
+
+
+
+/* =========================================
+   CARROUSEL AVEC VÉRITABLE AMBILIGHT
+========================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const carouselElement = document.getElementById('events-carousel');
+    const ambilightBg = document.getElementById('carousel-ambilight'); // Le calque du fond
+
+    if (carouselElement && ambilightBg) {
+        // 1. On crée l'instance Splide
+        const splide = new Splide(carouselElement, {
+            type   : 'loop',
+            perPage: 3,
+            perMove: 1,
+            gap    : '30px',
+            focus  : 'center',
+            autoplay: true,
+            interval: 3000,
+            pagination: false,
+            breakpoints: {
+                992: { perPage: 2, focus: 0 },
+                576: { perPage: 1 }
+            }
+        });
+
+        // 2. FONCTION POUR METTRE À JOUR L'AMBILIGHT
+        function updateAmbilight() {
+            // On va chercher l'image de la slide centrale (active)
+            const activeSlide = splide.Components.Slides.getAt(splide.index);
+            if (activeSlide) {
+                const activeImg = activeSlide.slide.querySelector('img');
+                if (activeImg) {
+                    const imgSrc = activeImg.getAttribute('src');
+                    // On applique cette image comme fond de l'ambilight
+                    ambilightBg.style.backgroundImage = `url('${imgSrc}')`;
+                }
+            }
+        }
+
+        // 3. On applique l'effet dès le chargement
+        splide.on('mounted', updateAmbilight);
+
+        // 4. On met à jour à chaque fois que le carrousel défile (move)
+        splide.on('move', updateAmbilight);
+
+        // 5. On allume
+        splide.mount();
+    }
+});
