@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Contactez Radiance pour une demande de booking, de partenariat, de presse ou de shop."
+        />
+        <title>Radiance | Contact</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+
+        <style>
+            /* =========================================
+           CONTACT PAGE — Design aligné avec la DA Radiance
+        ========================================= */
+
+            .contact-hero {
+                min-height: 100vh;
+                padding: 150px 0 90px;
+                position: relative;
+                overflow: hidden;
+                background:
+                    radial-gradient(
+                        circle at 15% 20%,
+                        rgba(230, 57, 70, 0.22),
+                        transparent 32%
+                    ),
+                    radial-gradient(
+                        circle at 85% 75%,
+                        rgba(255, 255, 255, 0.08),
+                        transparent 28%
+                    ),
+                    linear-gradient(
+                        180deg,
+                        rgba(5, 5, 5, 0.1) 0%,
+                        var(--bg-color) 82%
+                    );
+            }
+
+            .contact-hero::before {
+                content: "CONTACT";
+                position: absolute;
+                top: 105px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: clamp(5rem, 17vw, 18rem);
+                font-weight: 900;
+                letter-spacing: -0.08em;
+                color: rgba(255, 255, 255, 0.035);
+                line-height: 0.8;
+                pointer-events: none;
+                user-select: none;
+                white-space: nowrap;
+            }
+
+            .contact-layout {
+                position: relative;
+                z-index: 2;
+                display: grid;
+                grid-template-columns: 0.85fr 1.15fr;
+                gap: 70px;
+                align-items: start;
+            }
+
+            .contact-intro {
+                padding-top: 30px;
+            }
+
+            .contact-label {
+                color: var(--accent-color);
+                font-weight: 900;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                margin-bottom: 18px;
+            }
+
+            .contact-title {
+                font-size: clamp(3rem, 7vw, 6.5rem);
+                line-height: 0.9;
+                letter-spacing: -0.06em;
+                margin-bottom: 28px;
+            }
+
+            .contact-description {
+                max-width: 560px;
+                color: var(--text-muted);
+                font-size: 1rem;
+                line-height: 1.9;
+                font-weight: 300;
+            }
+
+            .contact-description strong {
+                color: var(--text-main);
+                font-weight: 700;
+            }
+
+            .contact-info-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+                margin-top: 42px;
+            }
+
+            .contact-info-card,
+            .security-panel,
+            .contact-form-shell {
+                background: rgba(18, 18, 18, 0.72);
+                border: var(--glass-border);
+                backdrop-filter: var(--glass-blur);
+                -webkit-backdrop-filter: var(--glass-blur);
+            }
+
+            .contact-info-card {
+                padding: 22px;
+                min-height: 135px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .contact-info-card span {
+                color: var(--accent-color);
+                font-size: 0.75rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .contact-info-card p {
+                color: var(--text-main);
+                font-weight: 700;
+                line-height: 1.5;
+            }
+
+            .security-panel {
+                margin-top: 16px;
+                padding: 24px;
+            }
+
+            .security-panel h3 {
+                font-size: 0.95rem;
+                margin-bottom: 18px;
+            }
+
+            .security-list {
+                display: grid;
+                gap: 12px;
+            }
+
+            .security-check {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: var(--text-muted);
+                font-size: 0.86rem;
+                line-height: 1.5;
+            }
+
+            .security-check::before {
+                content: "";
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.18);
+                box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.04);
+                flex: 0 0 auto;
+            }
+
+            .security-check.is-active {
+                color: var(--text-main);
+            }
+
+            .security-check.is-active::before {
+                background: var(--accent-color);
+                box-shadow: 0 0 18px rgba(230, 57, 70, 0.75);
+            }
+
+            .contact-form-shell {
+                padding: 34px;
+                box-shadow: 0 35px 90px rgba(0, 0, 0, 0.45);
+            }
+
+            .contact-form-header {
+                display: flex;
+                justify-content: space-between;
+                gap: 28px;
+                align-items: start;
+                margin-bottom: 34px;
+            }
+
+            .contact-form-header h2 {
+                font-size: clamp(2rem, 4vw, 3.8rem);
+                line-height: 0.95;
+                margin-bottom: 0;
+            }
+
+            .form-security-tag {
+                border: 1px solid rgba(230, 57, 70, 0.45);
+                color: var(--accent-color);
+                padding: 10px 14px;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                font-size: 0.7rem;
+                font-weight: 900;
+                white-space: nowrap;
+                background: rgba(230, 57, 70, 0.08);
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 22px;
+            }
+
+            .form-field {
+                display: flex;
+                flex-direction: column;
+                gap: 9px;
+            }
+
+            .form-field.full {
+                grid-column: 1 / -1;
+            }
+
+            .form-field label,
+            .field-label {
+                color: var(--text-main);
+                font-size: 0.78rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+            }
+
+            .contact-form input,
+            .contact-form select,
+            .contact-form textarea {
+                width: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(5, 5, 5, 0.72);
+                color: var(--text-main);
+                font-family: var(--font-main);
+                font-size: 0.95rem;
+                padding: 17px 18px;
+                outline: none;
+                transition:
+                    border-color 0.25s ease,
+                    box-shadow 0.25s ease,
+                    background 0.25s ease;
+            }
+
+            .contact-form input::placeholder,
+            .contact-form textarea::placeholder {
+                color: rgba(255, 255, 255, 0.25);
+            }
+
+            .contact-form input:focus,
+            .contact-form select:focus,
+            .contact-form textarea:focus {
+                border-color: rgba(230, 57, 70, 0.8);
+                background: rgba(5, 5, 5, 0.92);
+                box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.12);
+            }
+
+            .contact-form select option {
+                background: #050505;
+                color: var(--text-main);
+            }
+
+            .contact-form textarea {
+                min-height: 180px;
+                resize: vertical;
+                line-height: 1.7;
+            }
+
+            .field-error {
+                min-height: 18px;
+                color: #ff9aa2;
+                font-size: 0.76rem;
+                line-height: 1.4;
+            }
+
+            .form-helper {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+                color: var(--text-muted);
+                font-size: 0.74rem;
+                line-height: 1.5;
+            }
+
+            .char-counter.warning {
+                color: #ffd166;
+            }
+
+            .honeypot-field {
+                position: absolute;
+                left: -9999px;
+                width: 1px;
+                height: 1px;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .consent-box {
+                grid-column: 1 / -1;
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 18px;
+                border: 1px solid rgba(255, 255, 255, 0.09);
+                background: rgba(5, 5, 5, 0.55);
+                color: var(--text-muted);
+                font-size: 0.82rem;
+                line-height: 1.7;
+                cursor: pointer;
+            }
+
+            .consent-box input {
+                width: 16px;
+                height: 16px;
+                margin-top: 4px;
+                accent-color: var(--accent-color);
+                flex: 0 0 auto;
+            }
+
+            .submit-btn {
+                grid-column: 1 / -1;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+                min-height: 58px;
+                border: 1px solid var(--accent-color);
+                background: var(--accent-color);
+                color: white;
+                font-family: var(--font-main);
+                font-size: 0.88rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                cursor: pointer;
+                transition:
+                    transform 0.25s ease,
+                    background 0.25s ease,
+                    box-shadow 0.25s ease,
+                    opacity 0.25s ease;
+            }
+
+            .submit-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 35px rgba(230, 57, 70, 0.28);
+                background: #ff4655;
+            }
+
+            .submit-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+
+            .form-alert {
+                display: none;
+                grid-column: 1 / -1;
+                padding: 16px 18px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+
+            .form-alert.is-visible {
+                display: block;
+            }
+
+            .form-alert.error {
+                border-color: rgba(255, 154, 162, 0.35);
+                color: #ffb3ba;
+                background: rgba(230, 57, 70, 0.1);
+            }
+
+            .form-alert.success {
+                border-color: rgba(90, 220, 140, 0.35);
+                color: #b7f7c8;
+                background: rgba(90, 220, 140, 0.08);
+            }
+
+            .security-note {
+                grid-column: 1 / -1;
+                padding: 18px;
+                border-left: 3px solid var(--accent-color);
+                background: rgba(5, 5, 5, 0.48);
+                color: var(--text-muted);
+                font-size: 0.76rem;
+                line-height: 1.7;
+            }
+
+            .security-note strong {
+                color: var(--text-main);
+            }
+
+            .contact-footer-space {
+                height: 60px;
+            }
+
+            @media (max-width: 980px) {
+                .contact-layout {
+                    grid-template-columns: 1fr;
+                    gap: 44px;
+                }
+
+                .contact-intro {
+                    padding-top: 0;
+                }
+            }
+
+            @media (max-width: 680px) {
+                .contact-hero {
+                    padding: 125px 0 70px;
+                }
+
+                .header-container {
+                    padding: 0 22px;
+                }
+
+                .contact-info-grid,
+                .form-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .contact-form-shell {
+                    padding: 22px;
+                }
+
+                .contact-form-header {
+                    flex-direction: column;
+                }
+
+                .form-security-tag {
+                    width: fit-content;
+                }
+
+                .form-helper {
+                    flex-direction: column;
+                    gap: 4px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header id="main-header" class="liquid-header">
+            <div class="header-container">
+                <button
+                    id="burger-btn"
+                    class="burger-menu"
+                    aria-label="Ouvrir le menu"
+                >
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </button>
+
+                <a href="index.html" class="logo-link">
+                    <img
+                        src="src/images/logo.png"
+                        alt="Radiance Logo"
+                        class="header-logo"
+                    />
+                </a>
+
+                <a href="/shop" class="shop-link">Shop</a>
+            </div>
+        </header>
+
+        <nav id="full-menu" class="full-menu-overlay">
+            <div class="menu-content">
+                <ul>
+                    <li>
+                        <a href="index.html#hero" class="menu-link">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="index.html#events" class="menu-link">Event</a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.instagram.com/radiancee_agency/"
+                            class="menu-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Management</a
+                        >
+                    </li>
+                    <li>
+                        <a href="index.html#showcase" class="menu-link"
+                            >Cut the mustard</a
+                        >
+                    </li>
+                    <li><a href="/shop" class="menu-link">Shop</a></li>
+                    <li>
+                        <a href="contact.html" class="menu-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="contact-hero">
+                <div class="container">
+                    <div class="contact-layout">
+                        <div class="contact-intro">
+                            <p class="contact-label">Radiance worldwide</p>
+                            <h1 class="contact-title">Let's talk.</h1>
+                            <p class="contact-description">
+                                Une demande de <strong>booking</strong>, un
+                                projet de partenariat, une question liée au shop
+                                ou une prise de contact plus générale ? Cette
+                                page garde l’esprit visuel Radiance tout en
+                                intégrant une logique de sécurité simple,
+                                visible et défendable à l’oral.
+                            </p>
+
+                            <div class="contact-info-grid">
+                                <article class="contact-info-card">
+                                    <span>Email</span>
+                                    <p>contact@radiance.fr</p>
+                                </article>
+
+                                <article class="contact-info-card">
+                                    <span>Base</span>
+                                    <p>Lille<br />Hauts-de-France</p>
+                                </article>
+
+                                <article class="contact-info-card">
+                                    <span>Social</span>
+                                    <p>
+                                        @radiance_event<br />@radiancee_agency
+                                    </p>
+                                </article>
+
+                                <article class="contact-info-card">
+                                    <span>Données</span>
+                                    <p>
+                                        Collecte limitée<br />au strict
+                                        nécessaire
+                                    </p>
+                                </article>
+                            </div>
+
+                            <aside
+                                class="security-panel"
+                                aria-label="Contrôles de sécurité du formulaire"
+                            >
+                                <h3>Security by design</h3>
+                                <div class="security-list">
+                                    <p
+                                        class="security-check"
+                                        id="check-validation"
+                                    >
+                                        Validation stricte des champs
+                                    </p>
+                                    <p
+                                        class="security-check is-active"
+                                        id="check-honeypot"
+                                    >
+                                        Honeypot anti-bot actif
+                                    </p>
+                                    <p
+                                        class="security-check is-active"
+                                        id="check-length"
+                                    >
+                                        Message limité à 1000 caractères
+                                    </p>
+                                    <p
+                                        class="security-check"
+                                        id="check-consent"
+                                    >
+                                        Consentement RGPD explicite
+                                    </p>
+                                </div>
+                            </aside>
+                        </div>
+
+                        <div class="contact-form-shell">
+                            <form
+                                id="contactForm"
+                                class="contact-form"
+                                novalidate
+                            >
+                                <div class="contact-form-header">
+                                    <h2>Contact form</h2>
+                                    <span class="form-security-tag"
+                                        >Public form hardened</span
+                                    >
+                                </div>
+
+                                <div class="form-grid">
+                                    <div
+                                        id="globalError"
+                                        class="form-alert error"
+                                        role="alert"
+                                    ></div>
+                                    <div
+                                        id="successMessage"
+                                        class="form-alert success"
+                                        role="status"
+                                    ></div>
+
+                                    <div class="form-field">
+                                        <label for="name">Nom</label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            maxlength="50"
+                                            autocomplete="name"
+                                            placeholder="Votre nom"
+                                        />
+                                        <p
+                                            class="field-error"
+                                            id="nameError"
+                                        ></p>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="email">Email</label>
+                                        <input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            maxlength="100"
+                                            autocomplete="email"
+                                            placeholder="vous@email.com"
+                                        />
+                                        <p
+                                            class="field-error"
+                                            id="emailError"
+                                        ></p>
+                                    </div>
+
+                                    <div class="form-field full">
+                                        <label for="subject">Sujet</label>
+                                        <select id="subject" name="subject">
+                                            <option>Demande générale</option>
+                                            <option>Booking / DJ set</option>
+                                            <option>Partenariat</option>
+                                            <option>Presse / média</option>
+                                            <option>Shop / merch</option>
+                                            <option>Autre</option>
+                                        </select>
+                                        <p
+                                            class="field-error"
+                                            id="subjectError"
+                                        ></p>
+                                    </div>
+
+                                    <div class="form-field full">
+                                        <label for="message">Message</label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            minlength="10"
+                                            maxlength="1000"
+                                            placeholder="Décrivez votre demande en quelques lignes..."
+                                        ></textarea>
+                                        <div class="form-helper">
+                                            <span
+                                                >Les caractères HTML sensibles
+                                                sont neutralisés avant
+                                                traitement.</span
+                                            >
+                                            <span
+                                                id="charCounter"
+                                                class="char-counter"
+                                                >1000 caractères restants</span
+                                            >
+                                        </div>
+                                        <p
+                                            class="field-error"
+                                            id="messageError"
+                                        ></p>
+                                    </div>
+
+                                    <div
+                                        class="honeypot-field"
+                                        aria-hidden="true"
+                                    >
+                                        <label for="website">Site web</label>
+                                        <input
+                                            id="website"
+                                            name="website"
+                                            type="text"
+                                            tabindex="-1"
+                                            autocomplete="off"
+                                        />
+                                    </div>
+
+                                    <label class="consent-box" for="consent">
+                                        <input
+                                            id="consent"
+                                            name="consent"
+                                            type="checkbox"
+                                        />
+                                        <span>
+                                            J’accepte que Radiance utilise ces
+                                            informations uniquement pour
+                                            répondre à ma demande. Les données
+                                            ne sont pas revendues et sont
+                                            conservées pour une durée limitée.
+                                            <span
+                                                class="field-error"
+                                                id="consentError"
+                                            ></span>
+                                        </span>
+                                    </label>
+
+                                    <button
+                                        id="submitBtn"
+                                        class="submit-btn"
+                                        type="submit"
+                                    >
+                                        <span id="submitText"
+                                            >Envoyer le message</span
+                                        >
+                                        <span aria-hidden="true">→</span>
+                                    </button>
+
+                                    <p class="security-note">
+                                        <strong>Note sécurité :</strong> cette
+                                        page applique des contrôles côté client
+                                        pour la démonstration. En production,
+                                        les mêmes règles doivent être imposées
+                                        côté serveur : validation, rate
+                                        limiting, journalisation minimale,
+                                        protection anti-spam et envoi via un
+                                        service mail sécurisé.
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="contact-footer-space"></div>
+        </main>
+
+        <footer id="main-footer"></footer>
+
+        <script src="script.js"></script>
+
+        <script>
+            "use strict";
+
+            const MAX_MESSAGE_LENGTH = 1000;
+            const MIN_MESSAGE_LENGTH = 10;
+            const MIN_DELAY_BETWEEN_SUBMISSIONS = 15000;
+
+            const allowedSubjects = [
+                "Demande générale",
+                "Booking / DJ set",
+                "Partenariat",
+                "Presse / média",
+                "Shop / merch",
+                "Autre",
+            ];
+
+            const form = document.getElementById("contactForm");
+            const submitBtn = document.getElementById("submitBtn");
+            const submitText = document.getElementById("submitText");
+            const globalError = document.getElementById("globalError");
+            const successMessage = document.getElementById("successMessage");
+
+            const fields = {
+                name: document.getElementById("name"),
+                email: document.getElementById("email"),
+                subject: document.getElementById("subject"),
+                message: document.getElementById("message"),
+                website: document.getElementById("website"),
+                consent: document.getElementById("consent"),
+            };
+
+            const errors = {
+                name: document.getElementById("nameError"),
+                email: document.getElementById("emailError"),
+                subject: document.getElementById("subjectError"),
+                message: document.getElementById("messageError"),
+                consent: document.getElementById("consentError"),
+            };
+
+            const checks = {
+                validation: document.getElementById("check-validation"),
+                honeypot: document.getElementById("check-honeypot"),
+                length: document.getElementById("check-length"),
+                consent: document.getElementById("check-consent"),
+            };
+
+            const charCounter = document.getElementById("charCounter");
+            let lastSubmitAt = 0;
+
+            function sanitizeText(value) {
+                return value
+                    .replace(/[<>]/g, "")
+                    .replace(/javascript:/gi, "")
+                    .replace(/onerror=/gi, "")
+                    .replace(/onload=/gi, "")
+                    .trim();
+            }
+
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+            }
+
+            function setError(fieldName, message) {
+                errors[fieldName].textContent = message || "";
+            }
+
+            function setGlobalError(message) {
+                globalError.textContent = message || "";
+                globalError.classList.toggle("is-visible", Boolean(message));
+            }
+
+            function setSuccess(message) {
+                successMessage.textContent = message || "";
+                successMessage.classList.toggle("is-visible", Boolean(message));
+            }
+
+            function clearErrors() {
+                Object.keys(errors).forEach((key) => setError(key, ""));
+                setGlobalError("");
+                setSuccess("");
+            }
+
+            function updateSecurityChecks() {
+                const cleanName = sanitizeText(fields.name.value);
+                const cleanEmail = sanitizeText(
+                    fields.email.value,
+                ).toLowerCase();
+                const cleanMessage = sanitizeText(fields.message.value);
+
+                const validationIsOk =
+                    cleanName.length >= 2 &&
+                    cleanName.length <= 50 &&
+                    isValidEmail(cleanEmail) &&
+                    cleanMessage.length >= MIN_MESSAGE_LENGTH &&
+                    cleanMessage.length <= MAX_MESSAGE_LENGTH;
+
+                checks.validation.classList.toggle("is-active", validationIsOk);
+                checks.honeypot.classList.toggle(
+                    "is-active",
+                    fields.website.value === "",
+                );
+                checks.length.classList.toggle(
+                    "is-active",
+                    fields.message.value.length <= MAX_MESSAGE_LENGTH,
+                );
+                checks.consent.classList.toggle(
+                    "is-active",
+                    fields.consent.checked,
+                );
+
+                const remaining =
+                    MAX_MESSAGE_LENGTH - fields.message.value.length;
+                charCounter.textContent = `${remaining} caractères restants`;
+                charCounter.classList.toggle("warning", remaining < 100);
+            }
+
+            function validateForm() {
+                clearErrors();
+
+                const cleanPayload = {
+                    name: sanitizeText(fields.name.value),
+                    email: sanitizeText(fields.email.value).toLowerCase(),
+                    subject: fields.subject.value,
+                    message: sanitizeText(fields.message.value),
+                };
+
+                let isValid = true;
+                const now = Date.now();
+
+                if (fields.website.value) {
+                    setGlobalError("Comportement automatisé détecté.");
+                    isValid = false;
+                }
+
+                if (
+                    cleanPayload.name.length < 2 ||
+                    cleanPayload.name.length > 50
+                ) {
+                    setError(
+                        "name",
+                        "Le nom doit contenir entre 2 et 50 caractères.",
+                    );
+                    isValid = false;
+                }
+
+                if (
+                    !isValidEmail(cleanPayload.email) ||
+                    cleanPayload.email.length > 100
+                ) {
+                    setError("email", "Adresse email invalide.");
+                    isValid = false;
+                }
+
+                if (!allowedSubjects.includes(cleanPayload.subject)) {
+                    setError("subject", "Sujet invalide.");
+                    isValid = false;
+                }
+
+                if (cleanPayload.message.length < MIN_MESSAGE_LENGTH) {
+                    setError(
+                        "message",
+                        "Le message doit contenir au moins 10 caractères.",
+                    );
+                    isValid = false;
+                }
+
+                if (cleanPayload.message.length > MAX_MESSAGE_LENGTH) {
+                    setError(
+                        "message",
+                        "Le message ne peut pas dépasser 1000 caractères.",
+                    );
+                    isValid = false;
+                }
+
+                if (!fields.consent.checked) {
+                    setError(
+                        "consent",
+                        "Le consentement est obligatoire pour envoyer le message.",
+                    );
+                    isValid = false;
+                }
+
+                if (
+                    lastSubmitAt &&
+                    now - lastSubmitAt < MIN_DELAY_BETWEEN_SUBMISSIONS
+                ) {
+                    setGlobalError(
+                        "Merci d’attendre quelques secondes avant un nouvel envoi.",
+                    );
+                    isValid = false;
+                }
+
+                return { isValid, cleanPayload };
+            }
+
+            async function handleSubmit(event) {
+                event.preventDefault();
+
+                const result = validateForm();
+                updateSecurityChecks();
+
+                if (!result.isValid) {
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitText.textContent = "Envoi sécurisé...";
+
+                // Démo locale : simulation d'un appel réseau.
+                // En production : remplacer par fetch('/api/contact', { method: 'POST', ... })
+                await new Promise((resolve) => setTimeout(resolve, 900));
+
+                console.log(
+                    "Payload sécurisé prêt à être envoyé :",
+                    result.cleanPayload,
+                );
+                lastSubmitAt = Date.now();
+
+                form.reset();
+                updateSecurityChecks();
+                setSuccess(
+                    "Message prêt à être envoyé. En démo locale, le payload sécurisé est visible dans la console.",
+                );
+
+                submitBtn.disabled = false;
+                submitText.textContent = "Envoyer le message";
+            }
+
+            if (form) {
+                form.addEventListener("submit", handleSubmit);
+
+                Object.values(fields).forEach((field) => {
+                    field.addEventListener("input", updateSecurityChecks);
+                    field.addEventListener("change", updateSecurityChecks);
+                });
+
+                updateSecurityChecks();
+            }
+        </script>
+    </body>
+</html>
