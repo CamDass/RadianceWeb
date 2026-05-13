@@ -413,7 +413,63 @@
                 height: 60px;
             }
 
-            @media (max-width: 980px) {
+    
+        .request-panel {
+            margin-top: 16px;
+            padding: 24px;
+            background: rgba(18, 18, 18, 0.72);
+            border: var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+        }
+
+        .request-panel h3 {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .request-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .request-item {
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(5, 5, 5, 0.42);
+            transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+        }
+
+        .request-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(230, 57, 70, 0.45);
+            background: rgba(230, 57, 70, 0.06);
+        }
+
+        .request-item span {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-size: 0.72rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+        }
+
+        .request-item p {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 680px) {
+            .request-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 980px) {
                 .contact-layout {
                     grid-template-columns: 1fr;
                     gap: 44px;
@@ -478,7 +534,7 @@
                     />
                 </a>
 
-                <a href="/shop" class="shop-link">Shop</a>
+                <a href="shop.html" class="shop-link">Shop</a>
             </div>
         </header>
 
@@ -505,7 +561,7 @@
                             >Cut the mustard</a
                         >
                     </li>
-                    <li><a href="/shop" class="menu-link">Shop</a></li>
+                    <li><a href="shop.html" class="menu-link">Shop</a></li>
                     <li>
                         <a href="contact.html" class="menu-link">Contact</a>
                     </li>
@@ -548,45 +604,10 @@
                                 </article>
 
                                 <article class="contact-info-card">
-                                    <span>Données</span>
-                                    <p>
-                                        Collecte limitée<br />au strict
-                                        nécessaire
-                                    </p>
-                                </article>
+                            <span>Réponse</span>
+                            <p>Sous 48h<br>selon la demande</p>
+                        </article>
                             </div>
-
-                            <aside
-                                class="security-panel"
-                                aria-label="Contrôles de sécurité du formulaire"
-                            >
-                                <h3>Security by design</h3>
-                                <div class="security-list">
-                                    <p
-                                        class="security-check"
-                                        id="check-validation"
-                                    >
-                                        Validation stricte des champs
-                                    </p>
-                                    <p
-                                        class="security-check is-active"
-                                        id="check-honeypot"
-                                    >
-                                        Honeypot anti-bot actif
-                                    </p>
-                                    <p
-                                        class="security-check is-active"
-                                        id="check-length"
-                                    >
-                                        Message limité à 1000 caractères
-                                    </p>
-                                    <p
-                                        class="security-check"
-                                        id="check-consent"
-                                    >
-                                        Consentement RGPD explicite
-                                    </p>
-                                </div>
                             </aside>
                         </div>
 
@@ -599,7 +620,7 @@
                                 <div class="contact-form-header">
                                     <h2>Contact form</h2>
                                     <span class="form-security-tag"
-                                        >Public form hardened</span
+                                        >Radiance team</span
                                     >
                                 </div>
 
@@ -735,15 +756,9 @@
                                     </button>
 
                                     <p class="security-note">
-                                        <strong>Note sécurité :</strong> cette
-                                        page applique des contrôles côté client
-                                        pour la démonstration. En production,
-                                        les mêmes règles doivent être imposées
-                                        côté serveur : validation, rate
-                                        limiting, journalisation minimale,
-                                        protection anti-spam et envoi via un
-                                        service mail sécurisé.
-                                    </p>
+                                    <strong>Confidentialité :</strong> les informations envoyées via ce formulaire sont utilisées uniquement
+                                    pour répondre à votre demande. Ne partagez aucune donnée bancaire, mot de passe ou information sensible.
+                                </p>
                                 </div>
                             </form>
                         </div>
@@ -854,7 +869,7 @@
                     cleanMessage.length >= MIN_MESSAGE_LENGTH &&
                     cleanMessage.length <= MAX_MESSAGE_LENGTH;
 
-                checks.validation.classList.toggle("is-active", validationIsOk);
+                if (checks.validation) if (checks.validation) if (checks.validation) checks.validation.classList.toggle("is-active", validationIsOk);
                 checks.honeypot.classList.toggle(
                     "is-active",
                     fields.website.value === "",
