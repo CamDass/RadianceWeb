@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiance | Shop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .shop-hero {
+            min-height: 100vh;
+            padding: 150px 0 90px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(230, 57, 70, 0.22), transparent 32%),
+                radial-gradient(circle at 88% 60%, rgba(255, 255, 255, 0.07), transparent 30%),
+                linear-gradient(180deg, rgba(5, 5, 5, 0.08) 0%, var(--bg-color) 82%);
+        }
+
+        .shop-hero::before {
+            content: "SHOP";
+            position: absolute;
+            top: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(6rem, 21vw, 22rem);
+            font-weight: 900;
+            letter-spacing: -0.08em;
+            color: rgba(255, 255, 255, 0.035);
+            line-height: 0.8;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .shop-intro {
+            position: relative;
+            z-index: 2;
+            max-width: 920px;
+            margin-bottom: 58px;
+        }
+
+        .shop-label {
+            color: var(--accent-color);
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        .shop-title {
+            font-size: clamp(3.4rem, 8vw, 8rem);
+            line-height: 0.9;
+            letter-spacing: -0.07em;
+            margin-bottom: 28px;
+        }
+
+        .shop-description {
+            max-width: 720px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        .shop-description strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .shop-toolbar {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 22px;
+            margin-bottom: 30px;
+            padding: 18px;
+            background: rgba(18, 18, 18, 0.68);
+            border: var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+        }
+
+        .shop-status {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .shop-status strong {
+            color: var(--text-main);
+        }
+
+        .shop-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .shop-filter {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(5, 5, 5, 0.6);
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 11px 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .shop-filter:hover,
+        .shop-filter.is-active {
+            color: var(--text-main);
+            border-color: rgba(230, 57, 70, 0.55);
+            background: rgba(230, 57, 70, 0.13);
+        }
+
+        .products-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .product-card {
+            background: rgba(18, 18, 18, 0.74);
+            border: var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            overflow: hidden;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(230, 57, 70, 0.45);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+        }
+
+        .product-image-wrap {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(230, 57, 70, 0.24), transparent 36%),
+                linear-gradient(145deg, #151515, #050505);
+            overflow: hidden;
+        }
+
+        .product-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.95) contrast(1.02);
+            transition: transform 0.45s ease;
+        }
+
+        .product-card:hover .product-image-wrap img {
+            transform: scale(1.04);
+        }
+
+        .product-placeholder {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.22);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 2.4rem;
+            line-height: 1;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(230, 57, 70, 0.18), transparent 36%),
+                linear-gradient(145deg, #151515, #050505);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 8px 10px;
+            background: rgba(5, 5, 5, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .product-content {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-category {
+            color: var(--accent-color);
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 18px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: auto;
+            margin-bottom: 16px;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .product-size {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(5, 5, 5, 0.65);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            padding: 10px 12px;
+            outline: none;
+            max-width: 100px;
+        }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .product-btn {
+            width: 100%;
+            border: 1px solid var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 14px 15px;
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+            background: #ff4655;
+            box-shadow: 0 15px 35px rgba(230, 57, 70, 0.22);
+        }
+
+        .product-btn.secondary {
+            background: transparent;
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .product-btn.secondary:hover {
+            border-color: rgba(230, 57, 70, 0.5);
+            background: rgba(230, 57, 70, 0.08);
+            box-shadow: none;
+        }
+
+        .shop-note {
+            position: relative;
+            z-index: 2;
+            margin-top: 34px;
+            padding: 22px;
+            border-left: 3px solid var(--accent-color);
+            background: rgba(18, 18, 18, 0.68);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.8;
+        }
+
+        .shop-note strong {
+            color: var(--text-main);
+        }
+
+        .shop-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2000;
+            width: min(520px, calc(100% - 32px));
+            padding: 18px 20px;
+            background: rgba(5, 5, 5, 0.92);
+            border: 1px solid rgba(230, 57, 70, 0.45);
+            color: var(--text-main);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+            font-size: 0.86rem;
+            line-height: 1.6;
+            transition: all 0.25s ease;
+        }
+
+        .shop-toast.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 1180px) {
+            .products-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .shop-hero {
+                padding: 125px 0 70px;
+            }
+
+            .header-container {
+                padding: 0 22px;
+            }
+
+            .shop-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .shop-filters {
+                justify-content: flex-start;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="main-header" class="liquid-header">
+        <div class="header-container">
+            <button id="burger-btn" class="burger-menu" aria-label="Ouvrir le menu">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+            <a href="index.html" class="logo-link">
+                <img src="src/images/logo.png" alt="Radiance Logo" class="header-logo">
+            </a>
+
+            <a href="shop.html" class="shop-link">Shop</a>
+        </div>
+    </header>
+
+    <nav id="full-menu" class="full-menu-overlay">
+        <div class="menu-content">
+            <ul>
+                <li><a href="index.html#hero" class="menu-link">Accueil</a></li>
+                <li><a href="index.html#events" class="menu-link">Event</a></li>
+                <li><a href="https://www.instagram.com/radiancee_agency/" class="menu-link" target="_blank" rel="noopener noreferrer">Management</a></li>
+                <li><a href="index.html#showcase" class="menu-link">Cut the mustard</a></li>
+                <li><a href="shop.html" class="menu-link">Shop</a></li>
+                <li><a href="contact.html" class="menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="shop-hero">
+            <div class="container">
+                <div class="shop-intro">
+                    <p class="shop-label">Radiance merch</p>
+                    <h1 class="shop-title">Wear the night.</h1>
+                    <p class="shop-description">
+                        Une première sélection de pièces Radiance est en préparation.
+                        Les produits sont visibles en <strong>preview</strong>, mais les achats ne sont pas encore ouverts.
+                    </p>
+                </div>
+
+                <div class="shop-toolbar">
+                    <p class="shop-status">
+                        <strong>Shop en préparation.</strong><br>
+                        Les boutons d’achat seront activés lors de la connexion officielle à Shopify.
+                    </p>
+
+                    <div class="shop-filters" aria-label="Filtres produits">
+                        <button class="shop-filter is-active" type="button" data-filter="all">All</button>
+                        <button class="shop-filter" type="button" data-filter="T-shirt">T-shirts</button>
+                        <button class="shop-filter" type="button" data-filter="Pack">Packs</button>
+                    </div>
+                </div>
+
+                <div class="products-grid" id="productsGrid"></div>
+
+                <p class="shop-note">
+                    <strong>Information :</strong> aucun paiement n’est traité sur cette page pour le moment.
+                    À terme, chaque produit redirigera vers Shopify pour le paiement et la gestion de commande.
+                    Radiance ne demandera aucune donnée bancaire directement sur ce site.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div class="shop-toast" id="shopToast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+
+    <script>
+        "use strict";
+
+        const SHOPIFY_ENABLED = false;
+
+        const products = [
+            {
+                        "id": "radiance-tee-black",
+                        "name": "Radiance Tee — Black",
+                        "category": "T-shirt",
+                        "price": "35 €",
+                        "image": "",
+                        "status": "Drop soon",
+                        "description": "T-shirt noir Radiance, coupe droite, visuel frontal.",
+                        "sizes": [
+                                    "S",
+                                    "M",
+                                    "L",
+                                    "XL"
+                        ],
+                        "shopifyUrl": ""
+            },
+            {
+                        "id": "radiance-tee-white",
+                        "name": "Radiance Tee — White",
+                        "category": "T-shirt",
+                        "price": "35 €",
+                        "image": "",
+                        "status": "Drop soon",
+                        "description": "T-shirt blanc Radiance, design minimal, série limitée.",
+                        "sizes": [
+                                    "S",
+                                    "M",
+                                    "L",
+                                    "XL"
+                        ],
+                        "shopifyUrl": ""
+            },
+            {
+                        "id": "radiance-oversize",
+                        "name": "Radiance Oversized Tee",
+                        "category": "T-shirt",
+                        "price": "39 €",
+                        "image": "",
+                        "status": "Preview",
+                        "description": "Coupe oversize, inspiration rave, pièce pensée pour les events.",
+                        "sizes": [
+                                    "S",
+                                    "M",
+                                    "L",
+                                    "XL"
+                        ],
+                        "shopifyUrl": ""
+            },
+            {
+                        "id": "radiance-pack",
+                        "name": "Radiance Merch Pack",
+                        "category": "Pack",
+                        "price": "À venir",
+                        "image": "",
+                        "status": "Soon",
+                        "description": "Pack merch en préparation : textile, stickers et visuels exclusifs.",
+                        "sizes": [
+                                    "Unique"
+                        ],
+                        "shopifyUrl": ""
+            }
+];
+
+        const productsGrid = document.getElementById("productsGrid");
+        const toast = document.getElementById("shopToast");
+        const filters = document.querySelectorAll(".shop-filter");
+        let toastTimeout;
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function showToast(message) {
+            clearTimeout(toastTimeout);
+            toast.textContent = message;
+            toast.classList.add("is-visible");
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove("is-visible");
+            }, 3800);
+        }
+
+        function renderProducts(filter = "all") {
+            const filteredProducts = filter === "all"
+                ? products
+                : products.filter((product) => product.category === filter);
+
+            productsGrid.innerHTML = filteredProducts.map((product) => {
+                const image = product.image
+                    ? `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy">`
+                    : `<div class="product-placeholder">Bientôt</div>`;
+
+                const sizes = product.sizes.map((size) => {
+                    return `<option value="${escapeHtml(size)}">${escapeHtml(size)}</option>`;
+                }).join("");
+
+                return `
+                    <article class="product-card" data-product-id="${escapeHtml(product.id)}">
+                        <div class="product-image-wrap">
+                            ${image}
+                            <span class="product-badge">${escapeHtml(product.status)}</span>
+                        </div>
+
+                        <div class="product-content">
+                            <p class="product-category">${escapeHtml(product.category)}</p>
+                            <h2 class="product-name">${escapeHtml(product.name)}</h2>
+                            <p class="product-desc">${escapeHtml(product.description)}</p>
+
+                            <div class="product-meta">
+                                <p class="product-price">${escapeHtml(product.price)}</p>
+                                <select class="product-size" aria-label="Choisir une taille">
+                                    ${sizes}
+                                </select>
+                            </div>
+
+                            <div class="product-actions">
+                                <button class="product-btn" type="button" data-action="buy" data-product-id="${escapeHtml(product.id)}">
+                                    Bientôt disponible
+                                </button>
+                                <button class="product-btn secondary" type="button" data-action="details" data-product-id="${escapeHtml(product.id)}">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function getProduct(productId) {
+            return products.find((product) => product.id === productId);
+        }
+
+        productsGrid.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-action]");
+            if (!button) return;
+
+            const product = getProduct(button.dataset.productId);
+            if (!product) return;
+
+            if (button.dataset.action === "buy") {
+                if (!SHOPIFY_ENABLED || !product.shopifyUrl) {
+                    showToast(`${product.name} : achat bientôt disponible. La redirection Shopify n’est pas encore activée.`);
+                    return;
+                }
+
+                window.location.href = product.shopifyUrl;
+            }
+
+            if (button.dataset.action === "details") {
+                showToast(`${product.name} — ${product.description} Tailles disponibles : ${product.sizes.join(", ")}.`);
+            }
+        });
+
+        filters.forEach((filterButton) => {
+            filterButton.addEventListener("click", () => {
+                filters.forEach((button) => button.classList.remove("is-active"));
+                filterButton.classList.add("is-active");
+                renderProducts(filterButton.dataset.filter);
+            });
+        });
+
+        renderProducts();
+    </script>
+</body>
+</html>
