@@ -228,3 +228,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+
+
+
+
+/* =========================================
+   RÉCUPÉRATION DES ÉVÉNEMENTS SHOTGUN (VIA GO)
+========================================= */
+async function loadShotgunEvents() {
+    const container = document.getElementById('shotgun-events-container');
+    if (!container) return;
+
+    try {
+        // On interroge notre mini-serveur Go
+        const response = await fetch('http://localhost:8080/api/events');
+        
+        if (!response.ok) {
+            throw new Error('Erreur de connexion avec le serveur Go');
+        }
+
+        const events = await response.json();
+        
+        // On vide le conteneur au cas où
+        container.innerHTML = '';
+
+        // On crée les cartes dynamiquement
+        // On crée les cartes dynamiquement
+        // On crée les cartes dynamiquement
+        events.forEach(event => {
+            const dateObj = new Date(event.date);
+            
+            const dateStr = dateObj.toLocaleDateString('fr-FR', { 
+                weekday: 'short', day: 'numeric', month: 'long' 
+            });
+            const timeStr = dateObj.toLocaleTimeString('fr-FR', { 
+                hour: '2-digit', minute: '2-digit' 
+            });
+            const finalDate = `${dateStr} | ${timeStr}`;
+
+            // CONDITION : Si c'est un ancien événement, on prépare le badge
+            const badgeHTML = event.isSoldOut ? `<div class="sold-out-badge">Sold Out</div>` : '';
+
+            // CONDITION : Si c'est Sold out, l'image sera légèrement en noir et blanc pour le style (optionnel mais très cool)
+            const imgFilter = event.isSoldOut ? `style="filter: grayscale(60%);"` : '';
+
+            const cardHTML = `
+                <div class="event-card" onclick="window.open('${event.link}', '_blank')">
+                    <div class="event-image-wrapper">
+                        <!-- Injection du badge ici s'il existe -->
+                        ${badgeHTML}
+                        <img src="${event.image}" alt="${event.name}" class="event-photo" ${imgFilter}>
+                    </div>
+                    <div class="event-info">
+                        <p class="event-date">${finalDate}</p>
+                        <h3 class="event-name">${event.name}</h3>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+    } catch (error) {
+        console.warn("Serveur backend hors ligne ou erreur :", error);
+        // Comportement de repli si le serveur Go n'est pas lancé
+        container.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">Aucun événement programmé pour le moment.</p>';
+    }
+}
+
+// On lance la fonction au chargement de la page
+document.addEventListener('DOMContentLoaded', loadShotgunEvents);
