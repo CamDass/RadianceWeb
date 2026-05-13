@@ -183,3 +183,48 @@ document.addEventListener('DOMContentLoaded', function () {
         splide.mount();
     }
 });
+
+
+
+/* =========================================
+   EFFET HALO DYNAMIQUE AU SCROLL (Cut The Mustard)
+========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const ctmSection = document.getElementById('cut-the-mustard');
+    const ctmGlow = document.getElementById('ctm-glow-bg');
+    const ctmImg = document.querySelector('.ctm-fake-video');
+
+    if (ctmSection && ctmGlow && ctmImg) {
+        
+        // 1. ASTUCE MAGIQUE : On copie l'image de la vidéo en fond du halo
+        ctmGlow.style.backgroundImage = `url('${ctmImg.src}')`;
+
+        // 2. Animation progressive au scroll
+        window.addEventListener('scroll', () => {
+            // On récupère la position de la section par rapport à l'écran
+            const rect = ctmSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // On calcule où se trouve le milieu de la section
+            const sectionCenter = rect.top + (rect.height / 2);
+            const screenCenter = windowHeight / 2;
+
+            // On mesure la distance entre le centre de la section et le centre de l'écran
+            const distance = Math.abs(screenCenter - sectionCenter);
+            
+            // Distance à partir de laquelle la lumière commence à s'allumer
+            const maxDistance = windowHeight;
+
+            // Calcul de l'intensité (1 = parfaitement centré, 0 = très loin)
+            let opacity = 1 - (distance / maxDistance);
+            
+            // On bloque l'opacité entre 0 (invisible) et 0.5 (lueur douce)
+            // Tu peux monter à 0.7 ou 0.8 si tu veux un effet très fort
+
+            opacity = Math.max(0, Math.min(1, opacity));
+
+            // On applique l'opacité en direct
+            ctmGlow.style.opacity = opacity;
+        });
+    }
+});

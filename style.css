@@ -23,20 +23,31 @@
    2. RESET & BASES
    On nettoie les marges par défaut des navigateurs.
 ========================================= */
+/* =========================================
+   2. RESET & BASES
+   On nettoie les marges par défaut des navigateurs.
+========================================= */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html, body {
+html {
+    background-color: var(--bg-color);
+    /* LA CORRECTION : On ne met SURTOUT PAS d'overflow sur le html */
+    /* Cela supprime la double barre de défilement */
+}
+
+body {
     width: 100%;
     min-height: 100vh;
+    overflow-x: hidden; /* C'est le body, et lui seul, qui empêche le débordement horizontal */
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-main);
-    overflow-x: hidden; /* Empêche de scroller sur le côté par erreur */
-    -webkit-font-smoothing: antialiased; /* Rend les textes beaucoup plus nets et lisses */
+    -webkit-font-smoothing: antialiased;
+    position: relative; /* Bonne pratique globale */
 }
 
 /* Base Typographique pour les titres (Impact visuel fort) */
@@ -745,6 +756,9 @@ body.no-scroll {
     /* On utilise l'opacité pour simuler l'effet "Image Claire" */
     opacity: 0.6; /* Présent mais subtil pour ne pas tout écraser */
     transition: background-image 0.8s ease-in-out, opacity 0.8s ease-in-out;
+
+    transform: translate(-50%, -50%) scale(1.3) translateZ(0); 
+    will-change: background-image, opacity;
 }
 
 /* --- Le Carrousel (Devant) --- */
@@ -930,4 +944,209 @@ body.no-scroll {
 
 .video-placeholder-wrapper:hover .play-btn-overlay svg {
     transform: scale(1.15); /* Le bouton play réagit */
+}
+
+
+
+/* --- Modification de la section parente --- */
+/* --- La section parente --- */
+.ctm-section {
+    padding: 150px 0; /* Un peu plus d'air en haut et en bas */
+    background-color: var(--bg-color);
+    position: relative;
+    z-index: 1;
+    /* On a supprimé overflow: hidden ! La lumière peut enfin s'étendre. */
+}
+
+/* --- Le Spot Lumineux Parfait (Sans bords nets) --- */
+.ctm-glow-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 100%; 
+    height: 200%;
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Le flou ambiant */
+    filter: blur(120px) saturate(1.5) brightness(0.4); 
+    
+    /* LA CORRECTION : Un fondu elliptique ultra progressif */
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+    mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+    
+    z-index: -1;
+    opacity: 0; 
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
+
+    /* ASTUCE ANTI-SAUT */
+    transform: translate(-50%, -50%) translateZ(0);
+    will-change: opacity;
+}
+
+
+
+/* =========================================
+   13. FOOTER (Pied de page)
+========================================= */
+.site-footer {
+    background-color: #000000; /* Noir pur pour trancher avec la couleur de fond de la page */
+    padding: 100px 0 30px 0;
+    margin-top: 100px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtile ligne de séparation en haut */
+}
+
+/* --- Layout en 3 colonnes --- */
+.footer-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* --- Colonne 1 : Marque (Prend plus de place) --- */
+.footer-col-brand {
+    flex: 2; 
+    padding-right: 40px;
+}
+
+.footer-logo {
+    height: 60px; /* Ajuste selon la taille de ton logo 3D */
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+}
+
+.footer-huge-text {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    line-height: 1;
+    color: var(--text-main);
+}
+
+.footer-slogan {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+/* --- Icônes Réseaux Sociaux (Les cercles) --- */
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.social-icons a svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text-main);
+    transition: fill 0.3s ease;
+}
+
+.social-icons a:hover {
+    border-color: var(--text-main);
+    background-color: var(--text-main);
+    transform: translateY(-3px); /* Petit bond au survol */
+}
+
+.social-icons a:hover svg {
+    fill: #000000; /* L'icône devient noire sur fond blanc au survol */
+}
+
+
+/* --- Colonnes 2 et 3 : Liens --- */
+.footer-col-links {
+    flex: 1;
+}
+
+/* C'est ici qu'on crée la ligne de séparation verticale style Newrave */
+.footer-bordered {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 40px;
+}
+
+.footer-col-links h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: var(--text-main);
+}
+
+.footer-col-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espace entre les liens */
+}
+
+.footer-col-links a {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.footer-col-links a:hover {
+    color: var(--text-main);
+    padding-left: 5px; /* Petit effet de glissement au survol */
+}
+
+/* --- Copyright Bottom --- */
+.footer-bottom {
+    margin-top: 100px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* =========================================
+   MEDIA QUERIES (Tablettes & Mobiles)
+========================================= */
+@media (max-width: 992px) {
+    .footer-layout {
+        flex-wrap: wrap; /* Permet aux colonnes de passer à la ligne */
+    }
+    .footer-col-brand {
+        flex: 100%; /* Prend toute la largeur en haut */
+        margin-bottom: 50px;
+        padding-right: 0;
+    }
+    .footer-col-links {
+        flex: 1; /* Les deux menus restent côte à côte en dessous */
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-layout {
+        flex-direction: column; /* Tout s'empile */
+        gap: 50px;
+    }
+    .footer-huge-text {
+        font-size: 2.5rem;
+    }
+    .footer-bordered {
+        border-left: none; /* On retire les lignes verticales sur mobile */
+        padding-left: 0;
+    }
 }
